@@ -40,41 +40,6 @@ header.compact .tagline-wrap{display:none}
 .admin-link{margin:18px auto 0;display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);font-family:'Poppins',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;cursor:pointer;text-transform:uppercase;padding:10px 20px;border-radius:30px;transition:all .2s}
 .admin-link:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.9)}
 .admin-link svg{width:13px;height:13px;fill:currentColor}
-.admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:3000;opacity:0;pointer-events:none;transition:opacity .25s;backdrop-filter:blur(3px)}
-.admin-overlay.open{opacity:1;pointer-events:all}
-.admin-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-48%) scale(.95);width:min(440px,calc(100vw - 32px));max-height:84vh;overflow-y:auto;background:var(--white);border-radius:20px;z-index:3001;padding:30px 26px 26px;box-shadow:0 24px 60px rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
-.admin-modal.open{opacity:1;pointer-events:all;transform:translate(-50%,-50%) scale(1)}
-.admin-close{position:absolute;top:14px;right:16px;background:var(--gray-100);border:none;width:32px;height:32px;border-radius:50%;font-size:20px;line-height:1;cursor:pointer;color:var(--gray-600)}
-.admin-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--dark);margin-bottom:6px}
-.admin-sub{font-size:13px;color:var(--gray-500);margin-bottom:18px}
-.admin-code-input{width:100%;padding:13px 16px;border-radius:12px;border:1.5px solid var(--gray-200);background:var(--gray-100);font-family:'Poppins',sans-serif;font-size:14px;margin-bottom:8px}
-.admin-error{display:none;color:var(--red);font-size:12px;margin-bottom:10px}
-.admin-error.visible{display:block}
-.admin-btn{width:100%;background:linear-gradient(135deg,var(--red),var(--red-dark));color:white;border:none;border-radius:12px;padding:13px;font-family:'Poppins',sans-serif;font-weight:700;font-size:13px;letter-spacing:.5px;cursor:pointer;margin-top:6px}
-.admin-pizza-list{display:flex;flex-direction:column;gap:10px;max-height:46vh;overflow-y:auto;margin-bottom:8px;padding-right:4px}
-.admin-pizza-row{display:flex;align-items:center;gap:8px;border:1.5px solid var(--gray-200);border-radius:12px;padding:10px 12px}
-.admin-pizza-row-name{flex:1;font-size:13px;font-weight:600;color:var(--dark)}
-.admin-pizza-row input{width:62px;padding:8px;border-radius:8px;border:1.5px solid var(--gray-200);font-family:'Poppins',sans-serif;font-size:13px;text-align:center}
-.admin-pizza-row label{font-size:10px;color:var(--gray-400);display:block;margin-bottom:2px;text-align:center}
-.admin-save-msg{font-size:12px;color:var(--red);text-align:center;min-height:16px;margin-top:4px}
-.admin-save-msg.ok{color:#1a8a3a}
-.admin-tabs{display:flex;gap:8px;margin-bottom:16px;border-bottom:1.5px solid var(--gray-200)}
-.admin-tab{position:relative;background:none;border:none;padding:10px 4px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;color:var(--gray-400);cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-1.5px;display:flex;align-items:center;gap:6px}
-.admin-tab.active{color:var(--red);border-bottom-color:var(--red)}
-.admin-tab-badge{background:var(--red);color:white;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;padding:0 4px}
-.admin-orders-list{display:flex;flex-direction:column;gap:10px;max-height:50vh;overflow-y:auto;margin-bottom:6px;padding-right:4px}
-.admin-order-card{border:1.5px solid var(--gray-200);border-radius:14px;padding:12px 14px}
-.admin-order-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px}
-.admin-order-name{font-size:14px;font-weight:700;color:var(--dark)}
-.admin-order-time{font-size:10.5px;color:var(--gray-400)}
-.admin-order-items{font-size:12px;color:var(--gray-600);line-height:1.5;margin-bottom:8px}
-.admin-order-total{font-weight:800;color:var(--red);font-size:14px}
-.admin-order-status-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.admin-status-btn{flex:1;border:1.5px solid var(--gray-200);background:var(--white);border-radius:9px;padding:7px 6px;font-size:10.5px;font-weight:700;letter-spacing:.3px;cursor:pointer;color:var(--gray-500);transition:all .15s}
-.admin-status-btn.active-pendiente{background:#FFF3D6;border-color:#F4A200;color:#8A6200}
-.admin-status-btn.active-listo{background:#DCEBFF;border-color:#1F6FEB;color:#114A93}
-.admin-status-btn.active-entregado{background:#DFF6E1;border-color:#1a8a3a;color:#0f5e26}
-.admin-orders-empty{text-align:center;font-size:13px;color:var(--gray-400);padding:20px 0}
 header::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(244,162,0,.06) 1px,transparent 1px);background-size:28px 28px}
 header::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold),transparent)}
 .header-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:400px;height:300px;border-radius:50%;background:radial-gradient(ellipse,rgba(215,25,32,.12) 0%,transparent 70%);pointer-events:none}
@@ -372,7 +337,7 @@ footer{background:#000;text-align:center;padding:36px 20px;border-top:1px solid 
       <div class="bebida-price-row">
         <div class="bebida-price-block">
           <div class="bebida-volume">2 Litros</div>
-          <div class="bebida-price">$5</div>
+          <div class="bebida-price" id="bebida-price">$5</div>
         </div>
         <div class="bev-qty-row">
           <button class="bev-qty-btn" id="bev-minus">−</button>
@@ -392,43 +357,11 @@ footer{background:#000;text-align:center;padding:36px 20px;border-top:1px solid 
 <footer class="reveal">
   <div class="footer-logo">Charito Pizza</div>
   <div class="footer-tagline">Hecho con amor · Sabor auténtico · Gracias por tu preferencia</div>
-  <button class="admin-link" onclick="openAdminPanel()">
+  <a class="admin-link" href="admin.html" target="_blank" rel="noopener">
     <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
     Panel Admin
-  </button>
+  </a>
 </footer>
-
-<div class="admin-overlay" id="admin-overlay"></div>
-<div class="admin-modal" id="admin-modal">
-  <button class="admin-close" onclick="closeAdminPanel()">&times;</button>
-
-  <div id="admin-login-view">
-    <h3 class="admin-title">Panel Admin</h3>
-    <p class="admin-sub">Ingresa el código de acceso</p>
-    <input type="password" id="admin-code-input" class="admin-code-input" placeholder="Código de acceso" autocomplete="off">
-    <p class="admin-error" id="admin-code-error">Código incorrecto</p>
-    <button class="admin-btn" onclick="checkAdminCode()">Entrar</button>
-  </div>
-
-  <div id="admin-edit-view" style="display:none">
-    <div class="admin-tabs">
-      <button class="admin-tab active" id="admin-tab-prices" onclick="switchAdminTab('prices')">Precios</button>
-      <button class="admin-tab" id="admin-tab-orders" onclick="switchAdminTab('orders')">Pedidos<span class="admin-tab-badge" id="admin-orders-badge" style="display:none">0</span></button>
-    </div>
-
-    <div id="admin-prices-panel">
-      <p class="admin-sub">Cambia los precios y guarda. Se actualizan para todos los visitantes.</p>
-      <div class="admin-pizza-list" id="admin-pizza-list"></div>
-      <p class="admin-save-msg" id="admin-save-msg"></p>
-      <button class="admin-btn" onclick="saveAdminPrices()">Guardar cambios</button>
-    </div>
-
-    <div id="admin-orders-panel" style="display:none">
-      <p class="admin-sub">Pedidos recientes. Marca el estado a medida que avanzan.</p>
-      <div class="admin-orders-list" id="admin-orders-list"></div>
-    </div>
-  </div>
-</div>
 
 <a class="whatsapp-fab" id="whatsapp-fab" href="https://wa.me/17372729117?text=Hola%2C%20tengo%20una%20consulta%20sobre%20Charito%20Pizza" target="_blank" rel="noopener" aria-label="Contáctanos por WhatsApp">
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -487,6 +420,8 @@ footer{background:#000;text-align:center;padding:36px 20px;border-top:1px solid 
 // ══════════════════════════════════════════
 // PIZZA DATA
 // ══════════════════════════════════════════
+const SETTINGS = { beveragePrice:5, bordePrice:4 };
+
 const EXTRAS = [
   {name:'Jamón',price:3},{name:'Tocineta',price:3},{name:'Pepperoni',price:3},
   {name:'Maíz',price:3},{name:'Champiñones',price:3},{name:'Aceitunas',price:3},
@@ -607,7 +542,7 @@ function buildBordeHtml(pizzaId){
           <div class="bq-sublabel">Relleno de queso fundido</div>
         </div>
       </div>
-      <div class="bq-price">+$4</div>
+      <div class="bq-price">+$${SETTINGS.bordePrice}</div>
     </div>`;
 }
 
@@ -844,7 +779,7 @@ function bindAddButtons(){
       // Borde de queso
       const borde = document.getElementById(pizzaId+'-borde');
       const hasBorde = borde && borde.classList.contains('active');
-      if(hasBorde) price += 4;
+      if(hasBorde) price += SETTINGS.bordePrice;
 
       let fullName = name;
       if(extras.length) fullName += ' + '+extras.join(', ');
@@ -964,7 +899,7 @@ document.getElementById('bev-minus').addEventListener('click',()=>{if(bevQty>0){
 document.getElementById('bev-add-btn').addEventListener('click',()=>{
   if(bevQty===0) return;
   const ex=cart.find(i=>i.name==='Coca-Cola 2L');
-  if(ex) ex.qty+=bevQty; else cart.push({id:cartId++,name:'Coca-Cola 2L',size:'',price:5,qty:bevQty});
+  if(ex) ex.qty+=bevQty; else cart.push({id:cartId++,name:'Coca-Cola 2L',size:'',price:SETTINGS.beveragePrice,qty:bevQty});
   updateCartUI(); animateFab();
   bevQty=0; document.getElementById('bev-qty').textContent=0;
   const btn=document.getElementById('bev-add-btn');
@@ -1075,7 +1010,7 @@ window.addEventListener('load',()=>{
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, doc, getDocs, collection, setDoc, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, getDocs, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAw4JK79wi1kdOjdBTwCcDnpqjBO825-Qk",
@@ -1088,12 +1023,19 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
-const ADMIN_CODE = 'charito2026';
+
+function slugify(name){
+  return name.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-');
+}
 
 async function loadPricesFromFirestore(){
   try{
-    const snap = await getDocs(collection(db,'pizzas'));
-    snap.forEach(docSnap=>{
+    const [pizzasSnap, extrasSnap, settingsSnap] = await Promise.all([
+      getDocs(collection(db,'pizzas')),
+      getDocs(collection(db,'extras')),
+      getDocs(collection(db,'settings'))
+    ]);
+    pizzasSnap.forEach(docSnap=>{
       const data = docSnap.data();
       const p = PIZZAS.find(x=>x.id===docSnap.id);
       if(p){
@@ -1101,6 +1043,20 @@ async function loadPricesFromFirestore(){
         if(typeof data.priceMed==='number') p.priceMed=data.priceMed;
       }
     });
+    extrasSnap.forEach(docSnap=>{
+      const data = docSnap.data();
+      const e = EXTRAS.find(x=>slugify(x.name)===docSnap.id);
+      if(e && typeof data.price==='number') e.price=data.price;
+    });
+    settingsSnap.forEach(docSnap=>{
+      if(docSnap.id==='general'){
+        const data = docSnap.data();
+        if(typeof data.beveragePrice==='number') SETTINGS.beveragePrice=data.beveragePrice;
+        if(typeof data.bordePrice==='number') SETTINGS.bordePrice=data.bordePrice;
+      }
+    });
+    const bevPriceEl=document.getElementById('bebida-price');
+    if(bevPriceEl) bevPriceEl.textContent='$'+SETTINGS.beveragePrice;
     renderPizzas();
     applyPizzaFilter();
   }catch(e){
@@ -1108,67 +1064,6 @@ async function loadPricesFromFirestore(){
   }
 }
 loadPricesFromFirestore();
-
-function renderAdminList(){
-  const list=document.getElementById('admin-pizza-list');
-  list.innerHTML = PIZZAS.map(p=>`
-    <div class="admin-pizza-row" data-id="${p.id}">
-      <span class="admin-pizza-row-name">${p.name}</span>
-      <div><label>${p.sizeA}</label><input type="number" min="0" step="0.5" class="admin-fam-input" value="${p.priceFam}"></div>
-      <div><label>${p.sizeB}</label><input type="number" min="0" step="0.5" class="admin-med-input" value="${p.priceMed}"></div>
-    </div>
-  `).join('');
-}
-
-window.openAdminPanel=function(){
-  document.getElementById('admin-overlay').classList.add('open');
-  document.getElementById('admin-modal').classList.add('open');
-  document.getElementById('admin-login-view').style.display='block';
-  document.getElementById('admin-edit-view').style.display='none';
-  document.getElementById('admin-code-input').value='';
-  document.getElementById('admin-code-error').classList.remove('visible');
-};
-
-window.closeAdminPanel=function(){
-  document.getElementById('admin-overlay').classList.remove('open');
-  document.getElementById('admin-modal').classList.remove('open');
-};
-
-document.getElementById('admin-overlay').addEventListener('click', ()=>window.closeAdminPanel());
-
-window.checkAdminCode=function(){
-  const input=document.getElementById('admin-code-input').value.trim();
-  if(input===ADMIN_CODE){
-    document.getElementById('admin-login-view').style.display='none';
-    document.getElementById('admin-edit-view').style.display='block';
-    renderAdminList();
-  }else{
-    document.getElementById('admin-code-error').classList.add('visible');
-  }
-};
-
-window.saveAdminPrices=async function(){
-  const msg=document.getElementById('admin-save-msg');
-  msg.classList.remove('ok');
-  msg.textContent='Guardando...';
-  const rows=document.querySelectorAll('.admin-pizza-row');
-  try{
-    for(const row of rows){
-      const id=row.dataset.id;
-      const priceFam=parseFloat(row.querySelector('.admin-fam-input').value);
-      const priceMed=parseFloat(row.querySelector('.admin-med-input').value);
-      await setDoc(doc(db,'pizzas',id), {priceFam, priceMed}, {merge:true});
-      const p=PIZZAS.find(x=>x.id===id);
-      if(p){ p.priceFam=priceFam; p.priceMed=priceMed; }
-    }
-    renderPizzas();
-    applyPizzaFilter();
-    msg.classList.add('ok');
-    msg.textContent='¡Precios actualizados para todos!';
-  }catch(e){
-    msg.textContent='Error al guardar: '+e.message;
-  }
-};
 
 // ── Pedidos
 window.saveOrderToFirestore=async function(order){
@@ -1183,76 +1078,6 @@ window.saveOrderToFirestore=async function(order){
   }catch(e){
     console.warn('No se pudo guardar el pedido en Firestore.',e);
   }
-};
-
-let ordersUnsub=null;
-let latestOrders=[];
-
-function timeAgo(ts){
-  if(!ts||!ts.toDate) return '';
-  const diffMin=Math.round((Date.now()-ts.toDate().getTime())/60000);
-  if(diffMin<1) return 'Justo ahora';
-  if(diffMin<60) return 'Hace '+diffMin+' min';
-  const diffH=Math.round(diffMin/60);
-  if(diffH<24) return 'Hace '+diffH+' h';
-  return ts.toDate().toLocaleDateString();
-}
-
-function renderOrdersList(){
-  const list=document.getElementById('admin-orders-list');
-  const badge=document.getElementById('admin-orders-badge');
-  if(latestOrders.length===0){
-    list.innerHTML='<p class="admin-orders-empty">Aún no hay pedidos.</p>';
-  }else{
-    list.innerHTML=latestOrders.map(o=>{
-      const itemsHtml=o.items.map(i=>`${i.qty}x ${i.name}${i.size?' ('+i.size+')':''}`).join(', ');
-      return `
-        <div class="admin-order-card" data-id="${o.id}">
-          <div class="admin-order-top">
-            <div>
-              <div class="admin-order-name">${o.customerName}</div>
-              <div class="admin-order-time">${timeAgo(o.createdAt)}</div>
-            </div>
-            <div class="admin-order-total">$${o.total}</div>
-          </div>
-          <div class="admin-order-items">${itemsHtml}</div>
-          <div class="admin-order-status-row">
-            <button class="admin-status-btn ${o.status==='pendiente'?'active-pendiente':''}" onclick="setOrderStatus('${o.id}','pendiente')">Pendiente</button>
-            <button class="admin-status-btn ${o.status==='listo'?'active-listo':''}" onclick="setOrderStatus('${o.id}','listo')">Listo</button>
-            <button class="admin-status-btn ${o.status==='entregado'?'active-entregado':''}" onclick="setOrderStatus('${o.id}','entregado')">Entregado</button>
-          </div>
-        </div>`;
-    }).join('');
-  }
-  const pendingCount=latestOrders.filter(o=>o.status==='pendiente').length;
-  badge.style.display=pendingCount>0?'inline-flex':'none';
-  badge.textContent=pendingCount;
-}
-
-function listenToOrders(){
-  if(ordersUnsub) return;
-  const q=query(collection(db,'orders'), orderBy('createdAt','desc'), limit(40));
-  ordersUnsub=onSnapshot(q, snap=>{
-    latestOrders=snap.docs.map(d=>({id:d.id, ...d.data()}));
-    renderOrdersList();
-  }, e=>console.warn('No se pudieron escuchar los pedidos.',e));
-}
-
-window.setOrderStatus=async function(orderId, status){
-  try{
-    await setDoc(doc(db,'orders',orderId), {status}, {merge:true});
-  }catch(e){
-    console.warn('No se pudo actualizar el estado del pedido.',e);
-  }
-};
-
-window.switchAdminTab=function(tab){
-  const isPrices=tab==='prices';
-  document.getElementById('admin-tab-prices').classList.toggle('active',isPrices);
-  document.getElementById('admin-tab-orders').classList.toggle('active',!isPrices);
-  document.getElementById('admin-prices-panel').style.display=isPrices?'block':'none';
-  document.getElementById('admin-orders-panel').style.display=isPrices?'none':'block';
-  if(!isPrices) listenToOrders();
 };
 </script>
 </body>
