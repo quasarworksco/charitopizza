@@ -57,6 +57,23 @@ header.compact .tagline-wrap{display:none}
 .admin-pizza-row label{font-size:10px;color:var(--gray-400);display:block;margin-bottom:2px;text-align:center}
 .admin-save-msg{font-size:12px;color:var(--red);text-align:center;min-height:16px;margin-top:4px}
 .admin-save-msg.ok{color:#1a8a3a}
+.admin-tabs{display:flex;gap:8px;margin-bottom:16px;border-bottom:1.5px solid var(--gray-200)}
+.admin-tab{position:relative;background:none;border:none;padding:10px 4px;font-family:'Poppins',sans-serif;font-size:13px;font-weight:700;color:var(--gray-400);cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-1.5px;display:flex;align-items:center;gap:6px}
+.admin-tab.active{color:var(--red);border-bottom-color:var(--red)}
+.admin-tab-badge{background:var(--red);color:white;font-size:10px;font-weight:800;min-width:18px;height:18px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;padding:0 4px}
+.admin-orders-list{display:flex;flex-direction:column;gap:10px;max-height:50vh;overflow-y:auto;margin-bottom:6px;padding-right:4px}
+.admin-order-card{border:1.5px solid var(--gray-200);border-radius:14px;padding:12px 14px}
+.admin-order-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:6px}
+.admin-order-name{font-size:14px;font-weight:700;color:var(--dark)}
+.admin-order-time{font-size:10.5px;color:var(--gray-400)}
+.admin-order-items{font-size:12px;color:var(--gray-600);line-height:1.5;margin-bottom:8px}
+.admin-order-total{font-weight:800;color:var(--red);font-size:14px}
+.admin-order-status-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.admin-status-btn{flex:1;border:1.5px solid var(--gray-200);background:var(--white);border-radius:9px;padding:7px 6px;font-size:10.5px;font-weight:700;letter-spacing:.3px;cursor:pointer;color:var(--gray-500);transition:all .15s}
+.admin-status-btn.active-pendiente{background:#FFF3D6;border-color:#F4A200;color:#8A6200}
+.admin-status-btn.active-listo{background:#DCEBFF;border-color:#1F6FEB;color:#114A93}
+.admin-status-btn.active-entregado{background:#DFF6E1;border-color:#1a8a3a;color:#0f5e26}
+.admin-orders-empty{text-align:center;font-size:13px;color:var(--gray-400);padding:20px 0}
 header::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(244,162,0,.06) 1px,transparent 1px);background-size:28px 28px}
 header::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold),transparent)}
 .header-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:400px;height:300px;border-radius:50%;background:radial-gradient(ellipse,rgba(215,25,32,.12) 0%,transparent 70%);pointer-events:none}
@@ -390,11 +407,22 @@ footer{background:#000;text-align:center;padding:36px 20px;border-top:1px solid 
   </div>
 
   <div id="admin-edit-view" style="display:none">
-    <h3 class="admin-title">Editar precios</h3>
-    <p class="admin-sub">Cambia los precios y guarda. Se actualizan para todos los visitantes.</p>
-    <div class="admin-pizza-list" id="admin-pizza-list"></div>
-    <p class="admin-save-msg" id="admin-save-msg"></p>
-    <button class="admin-btn" onclick="saveAdminPrices()">Guardar cambios</button>
+    <div class="admin-tabs">
+      <button class="admin-tab active" id="admin-tab-prices" onclick="switchAdminTab('prices')">Precios</button>
+      <button class="admin-tab" id="admin-tab-orders" onclick="switchAdminTab('orders')">Pedidos<span class="admin-tab-badge" id="admin-orders-badge" style="display:none">0</span></button>
+    </div>
+
+    <div id="admin-prices-panel">
+      <p class="admin-sub">Cambia los precios y guarda. Se actualizan para todos los visitantes.</p>
+      <div class="admin-pizza-list" id="admin-pizza-list"></div>
+      <p class="admin-save-msg" id="admin-save-msg"></p>
+      <button class="admin-btn" onclick="saveAdminPrices()">Guardar cambios</button>
+    </div>
+
+    <div id="admin-orders-panel" style="display:none">
+      <p class="admin-sub">Pedidos recientes. Marca el estado a medida que avanzan.</p>
+      <div class="admin-orders-list" id="admin-orders-list"></div>
+    </div>
   </div>
 </div>
 
@@ -959,6 +987,13 @@ function sendToWhatsApp(){
   });
   const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
   msg+=`\n💰 *Total: $${total}*\n\n¡Gracias! 😊`;
+  if(typeof window.saveOrderToFirestore==='function'){
+    window.saveOrderToFirestore({
+      customerName:name,
+      items:cart.map(i=>({name:i.name,size:i.size||null,qty:i.qty,price:i.price})),
+      total:total
+    });
+  }
   window.open('https://wa.me/17372729117?text='+encodeURIComponent(msg),'_blank');
 }
 
@@ -1036,7 +1071,7 @@ window.addEventListener('load',()=>{
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, doc, getDocs, collection, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, doc, getDocs, collection, setDoc, addDoc, onSnapshot, query, orderBy, limit, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAw4JK79wi1kdOjdBTwCcDnpqjBO825-Qk",
@@ -1129,6 +1164,91 @@ window.saveAdminPrices=async function(){
   }catch(e){
     msg.textContent='Error al guardar: '+e.message;
   }
+};
+
+// ── Pedidos
+window.saveOrderToFirestore=async function(order){
+  try{
+    await addDoc(collection(db,'orders'),{
+      customerName:order.customerName,
+      items:order.items,
+      total:order.total,
+      status:'pendiente',
+      createdAt:serverTimestamp()
+    });
+  }catch(e){
+    console.warn('No se pudo guardar el pedido en Firestore.',e);
+  }
+};
+
+let ordersUnsub=null;
+let latestOrders=[];
+
+function timeAgo(ts){
+  if(!ts||!ts.toDate) return '';
+  const diffMin=Math.round((Date.now()-ts.toDate().getTime())/60000);
+  if(diffMin<1) return 'Justo ahora';
+  if(diffMin<60) return 'Hace '+diffMin+' min';
+  const diffH=Math.round(diffMin/60);
+  if(diffH<24) return 'Hace '+diffH+' h';
+  return ts.toDate().toLocaleDateString();
+}
+
+function renderOrdersList(){
+  const list=document.getElementById('admin-orders-list');
+  const badge=document.getElementById('admin-orders-badge');
+  if(latestOrders.length===0){
+    list.innerHTML='<p class="admin-orders-empty">Aún no hay pedidos.</p>';
+  }else{
+    list.innerHTML=latestOrders.map(o=>{
+      const itemsHtml=o.items.map(i=>`${i.qty}x ${i.name}${i.size?' ('+i.size+')':''}`).join(', ');
+      return `
+        <div class="admin-order-card" data-id="${o.id}">
+          <div class="admin-order-top">
+            <div>
+              <div class="admin-order-name">${o.customerName}</div>
+              <div class="admin-order-time">${timeAgo(o.createdAt)}</div>
+            </div>
+            <div class="admin-order-total">$${o.total}</div>
+          </div>
+          <div class="admin-order-items">${itemsHtml}</div>
+          <div class="admin-order-status-row">
+            <button class="admin-status-btn ${o.status==='pendiente'?'active-pendiente':''}" onclick="setOrderStatus('${o.id}','pendiente')">Pendiente</button>
+            <button class="admin-status-btn ${o.status==='listo'?'active-listo':''}" onclick="setOrderStatus('${o.id}','listo')">Listo</button>
+            <button class="admin-status-btn ${o.status==='entregado'?'active-entregado':''}" onclick="setOrderStatus('${o.id}','entregado')">Entregado</button>
+          </div>
+        </div>`;
+    }).join('');
+  }
+  const pendingCount=latestOrders.filter(o=>o.status==='pendiente').length;
+  badge.style.display=pendingCount>0?'inline-flex':'none';
+  badge.textContent=pendingCount;
+}
+
+function listenToOrders(){
+  if(ordersUnsub) return;
+  const q=query(collection(db,'orders'), orderBy('createdAt','desc'), limit(40));
+  ordersUnsub=onSnapshot(q, snap=>{
+    latestOrders=snap.docs.map(d=>({id:d.id, ...d.data()}));
+    renderOrdersList();
+  }, e=>console.warn('No se pudieron escuchar los pedidos.',e));
+}
+
+window.setOrderStatus=async function(orderId, status){
+  try{
+    await setDoc(doc(db,'orders',orderId), {status}, {merge:true});
+  }catch(e){
+    console.warn('No se pudo actualizar el estado del pedido.',e);
+  }
+};
+
+window.switchAdminTab=function(tab){
+  const isPrices=tab==='prices';
+  document.getElementById('admin-tab-prices').classList.toggle('active',isPrices);
+  document.getElementById('admin-tab-orders').classList.toggle('active',!isPrices);
+  document.getElementById('admin-prices-panel').style.display=isPrices?'block':'none';
+  document.getElementById('admin-orders-panel').style.display=isPrices?'none':'block';
+  if(!isPrices) listenToOrders();
 };
 </script>
 </body>
