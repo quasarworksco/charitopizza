@@ -37,8 +37,9 @@ header.compact .logo-wrap img{width:90px;height:90px}
 header.compact .tagline-wrap{display:none}
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s cubic-bezier(.22,1,.36,1)}
 .reveal.in-view{opacity:1;transform:translateY(0)}
-.admin-link{margin-top:14px;background:none;border:none;color:rgba(255,255,255,.25);font-family:'Poppins',sans-serif;font-size:10px;letter-spacing:1px;cursor:pointer;text-transform:uppercase;padding:6px}
-.admin-link:hover{color:rgba(255,255,255,.5)}
+.admin-link{margin:18px auto 0;display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.15);color:rgba(255,255,255,.6);font-family:'Poppins',sans-serif;font-size:11px;font-weight:600;letter-spacing:1px;cursor:pointer;text-transform:uppercase;padding:10px 20px;border-radius:30px;transition:all .2s}
+.admin-link:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.9)}
+.admin-link svg{width:13px;height:13px;fill:currentColor}
 .admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:3000;opacity:0;pointer-events:none;transition:opacity .25s;backdrop-filter:blur(3px)}
 .admin-overlay.open{opacity:1;pointer-events:all}
 .admin-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-48%) scale(.95);width:min(440px,calc(100vw - 32px));max-height:84vh;overflow-y:auto;background:var(--white);border-radius:20px;z-index:3001;padding:30px 26px 26px;box-shadow:0 24px 60px rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
@@ -391,7 +392,10 @@ footer{background:#000;text-align:center;padding:36px 20px;border-top:1px solid 
 <footer class="reveal">
   <div class="footer-logo">Charito Pizza</div>
   <div class="footer-tagline">Hecho con amor · Sabor auténtico · Gracias por tu preferencia</div>
-  <button class="admin-link" onclick="openAdminPanel()">Admin</button>
+  <button class="admin-link" onclick="openAdminPanel()">
+    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+    Panel Admin
+  </button>
 </footer>
 
 <div class="admin-overlay" id="admin-overlay"></div>
