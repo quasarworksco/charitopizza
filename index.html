@@ -312,12 +312,12 @@ footer{background:#000;text-align:center;padding:36px 20px;border-top:1px solid 
 // PIZZA DATA
 // ══════════════════════════════════════════
 const EXTRAS = [
-  {name:'Jamón',price:2},{name:'Tocineta',price:2},{name:'Pepperoni',price:2},
-  {name:'Maíz',price:2},{name:'Champiñones',price:2},{name:'Aceitunas',price:2},
-  {name:'Plátano',price:2},{name:'Cebolla',price:2},{name:'Jalapeño',price:2},
-  {name:'Q. crema',price:2},{name:'Q. azul',price:2},{name:'Q. parmesano',price:2},
-  {name:'Pesto',price:2},{name:'Pollo',price:3},{name:'Carne',price:3},
-  {name:'Pimentón',price:2},{name:'Tomate',price:2},{name:'Espinaca',price:2}
+  {name:'Jamón',price:3},{name:'Tocineta',price:3},{name:'Pepperoni',price:3},
+  {name:'Maíz',price:3},{name:'Champiñones',price:3},{name:'Aceitunas',price:3},
+  {name:'Plátano',price:3},{name:'Cebolla',price:3},{name:'Jalapeño',price:3},
+  {name:'Q. crema',price:3},{name:'Q. azul',price:3},{name:'Q. parmesano',price:3},
+  {name:'Pesto',price:3},{name:'Pollo',price:4},{name:'Carne',price:4},
+  {name:'Pimentón',price:3},{name:'Tomate',price:3},{name:'Espinaca',price:3}
 ];
 
 const PIZZAS = [
@@ -357,7 +357,7 @@ const PIZZAS = [
   {id:'tocineta', name:'Pizza de Tocineta', badge:'Nueva', color:'ch-clasica', icon:'fork', cornerBadge:'nueva',
    desc:'El sabor clásico con el toque ahumado de la tocineta',
    ingredients:['Salsa napolitana de la casa','Jamón · Queso mozzarella','Tocineta'],
-   priceFam:19, priceMed:10, sizeA:'Familiar', sizeB:'Mediana'},
+   priceFam:20, priceMed:12, sizeA:'Familiar', sizeB:'Mediana'},
   {id:'chicago', name:'Chicago Pizza', badge:'Chicago Style', color:'ch-chicago', icon:'building',
    desc:'', ingredients:['Salsa BBQ','Pollo · Carne de puerco','Quesos · Jamón · Pepperoni'],
    priceFam:25, priceMed:15, sizeA:'Grande', sizeB:'Pequeña'},
@@ -383,11 +383,11 @@ function buildExtrasHTML(pizzaId){
   return `
     <div class="card-extras-toggle" onclick="toggleExtras('${pizzaId}-extras-panel', this)">
       <svg viewBox="0 0 24 24" width="13" height="13"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="currentColor"/></svg>
-      Agregar ingredientes extra <span class="extras-cost-note">(+$2–$3 c/u)</span>
+      Agregar ingredientes extra <span class="extras-cost-note">(+$3–$4 c/u)</span>
     </div>
     <div class="card-extras-panel" id="${pizzaId}-extras-panel">
       <div class="card-extras-grid">
-        ${EXTRAS.map(e=>`<div class="ce-item" data-name="${e.name}" data-price="${e.price}">${e.name}${e.price===3?'<br><span style="opacity:.6;font-size:9px">$'+e.price+'</span>':''}</div>`).join('')}
+        ${EXTRAS.map(e=>`<div class="ce-item" data-name="${e.name}" data-price="${e.price}">${e.name}${e.price===4?'<br><span style="opacity:.6;font-size:9px">$'+e.price+'</span>':''}</div>`).join('')}
       </div>
       <div class="ce-selected-note" id="${pizzaId}-note"></div>
     </div>`;
@@ -395,11 +395,11 @@ function buildExtrasHTML(pizzaId){
 
 // ── Build Mitad y Mitad HTML
 function buildHalfHalfHTML(pizzaId){
-  const items = EXTRAS.map(e=>`<div class="hh-item" data-name="${e.name}">${e.name}</div>`).join('');
+  const items = EXTRAS.map(e=>`<div class="hh-item" data-name="${e.name}" data-price="${e.price}">${e.name}</div>`).join('');
   return `
     <div class="half-half-toggle" onclick="toggleHalfHalf('${pizzaId}-hh-panel', this)">
       <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-      Personalizar mitad y mitad <span class="hh-cost-note">(+$2 c/ingrediente)</span>
+      Personalizar mitad y mitad <span class="hh-cost-note">(+$3–$4 c/ingrediente)</span>
     </div>
     <div class="half-half-panel" id="${pizzaId}-hh-panel">
       <div class="half-half-header">
@@ -431,7 +431,7 @@ function buildBordeHtml(pizzaId){
           <div class="bq-sublabel">Relleno de queso fundido</div>
         </div>
       </div>
-      <div class="bq-price">+$3</div>
+      <div class="bq-price">+$4</div>
     </div>`;
 }
 
@@ -560,12 +560,14 @@ function updateHalfHalfNote(changedGrid){
   const noteId = panel.id.replace('-hh-panel','-hh-note');
   const note = document.getElementById(noteId);
   if(!note) return;
-  const selA = [...panel.querySelectorAll('[id$="-hh-a"] .sel-a')].map(e=>e.dataset.name);
-  const selB = [...panel.querySelectorAll('.sel-b')].map(e=>e.dataset.name);
+  const selAEls = [...panel.querySelectorAll('[id$="-hh-a"] .sel-a')];
+  const selBEls = [...panel.querySelectorAll('.sel-b')];
+  const selA = selAEls.map(e=>e.dataset.name);
+  const selB = selBEls.map(e=>e.dataset.name);
   const parts = [];
   if(selA.length) parts.push('Mitad A: '+selA.join(', '));
   if(selB.length) parts.push('Mitad B: '+selB.join(', '));
-  const cost = (selA.length + selB.length) * 2;
+  const cost = [...selAEls,...selBEls].reduce((s,e)=>s+parseInt(e.dataset.price),0);
   note.textContent = parts.length ? parts.join(' | ') + (cost?' (+$'+cost+')':'') : 'Selecciona ingredientes para cada mitad';
 }
 
@@ -647,11 +649,13 @@ function bindAddButtons(){
         // Half & half
         const hhPanel = document.getElementById(pizzaId+'-hh-panel');
         if(hhPanel && hhPanel.classList.contains('open')){
-          const selA = [...hhPanel.querySelectorAll('[id$="-hh-a"] .sel-a')].map(e=>e.dataset.name);
-          const selB = [...hhPanel.querySelectorAll('.sel-b')].map(e=>e.dataset.name);
+          const selAEls = [...hhPanel.querySelectorAll('[id$="-hh-a"] .sel-a')];
+          const selBEls = [...hhPanel.querySelectorAll('.sel-b')];
+          const selA = selAEls.map(e=>e.dataset.name);
+          const selB = selBEls.map(e=>e.dataset.name);
           const hhCount = selA.length + selB.length;
           if(hhCount>0){
-            price += hhCount*2;
+            price += [...selAEls,...selBEls].reduce((s,e)=>s+parseInt(e.dataset.price),0);
             const parts=[];
             if(selA.length) parts.push('M.A:'+selA.join('+'));
             if(selB.length) parts.push('M.B:'+selB.join('+'));
@@ -663,7 +667,7 @@ function bindAddButtons(){
       // Borde de queso
       const borde = document.getElementById(pizzaId+'-borde');
       const hasBorde = borde && borde.classList.contains('active');
-      if(hasBorde) price += 3;
+      if(hasBorde) price += 4;
 
       let fullName = name;
       if(extras.length) fullName += ' + '+extras.join(', ');
