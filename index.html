@@ -37,6 +37,26 @@ header.compact .logo-wrap img{width:90px;height:90px}
 header.compact .tagline-wrap{display:none}
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s cubic-bezier(.22,1,.36,1)}
 .reveal.in-view{opacity:1;transform:translateY(0)}
+.admin-link{margin-top:14px;background:none;border:none;color:rgba(255,255,255,.25);font-family:'Poppins',sans-serif;font-size:10px;letter-spacing:1px;cursor:pointer;text-transform:uppercase;padding:6px}
+.admin-link:hover{color:rgba(255,255,255,.5)}
+.admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:3000;opacity:0;pointer-events:none;transition:opacity .25s;backdrop-filter:blur(3px)}
+.admin-overlay.open{opacity:1;pointer-events:all}
+.admin-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-48%) scale(.95);width:min(440px,calc(100vw - 32px));max-height:84vh;overflow-y:auto;background:var(--white);border-radius:20px;z-index:3001;padding:30px 26px 26px;box-shadow:0 24px 60px rgba(0,0,0,.3);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
+.admin-modal.open{opacity:1;pointer-events:all;transform:translate(-50%,-50%) scale(1)}
+.admin-close{position:absolute;top:14px;right:16px;background:var(--gray-100);border:none;width:32px;height:32px;border-radius:50%;font-size:20px;line-height:1;cursor:pointer;color:var(--gray-600)}
+.admin-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--dark);margin-bottom:6px}
+.admin-sub{font-size:13px;color:var(--gray-500);margin-bottom:18px}
+.admin-code-input{width:100%;padding:13px 16px;border-radius:12px;border:1.5px solid var(--gray-200);background:var(--gray-100);font-family:'Poppins',sans-serif;font-size:14px;margin-bottom:8px}
+.admin-error{display:none;color:var(--red);font-size:12px;margin-bottom:10px}
+.admin-error.visible{display:block}
+.admin-btn{width:100%;background:linear-gradient(135deg,var(--red),var(--red-dark));color:white;border:none;border-radius:12px;padding:13px;font-family:'Poppins',sans-serif;font-weight:700;font-size:13px;letter-spacing:.5px;cursor:pointer;margin-top:6px}
+.admin-pizza-list{display:flex;flex-direction:column;gap:10px;max-height:46vh;overflow-y:auto;margin-bottom:8px;padding-right:4px}
+.admin-pizza-row{display:flex;align-items:center;gap:8px;border:1.5px solid var(--gray-200);border-radius:12px;padding:10px 12px}
+.admin-pizza-row-name{flex:1;font-size:13px;font-weight:600;color:var(--dark)}
+.admin-pizza-row input{width:62px;padding:8px;border-radius:8px;border:1.5px solid var(--gray-200);font-family:'Poppins',sans-serif;font-size:13px;text-align:center}
+.admin-pizza-row label{font-size:10px;color:var(--gray-400);display:block;margin-bottom:2px;text-align:center}
+.admin-save-msg{font-size:12px;color:var(--red);text-align:center;min-height:16px;margin-top:4px}
+.admin-save-msg.ok{color:#1a8a3a}
 header::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(244,162,0,.06) 1px,transparent 1px);background-size:28px 28px}
 header::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),var(--gold),transparent)}
 .header-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:400px;height:300px;border-radius:50%;background:radial-gradient(ellipse,rgba(215,25,32,.12) 0%,transparent 70%);pointer-events:none}
@@ -354,7 +374,29 @@ footer{background:#000;text-align:center;padding:36px 20px;border-top:1px solid 
 <footer class="reveal">
   <div class="footer-logo">Charito Pizza</div>
   <div class="footer-tagline">Hecho con amor · Sabor auténtico · Gracias por tu preferencia</div>
+  <button class="admin-link" onclick="openAdminPanel()">Admin</button>
 </footer>
+
+<div class="admin-overlay" id="admin-overlay"></div>
+<div class="admin-modal" id="admin-modal">
+  <button class="admin-close" onclick="closeAdminPanel()">&times;</button>
+
+  <div id="admin-login-view">
+    <h3 class="admin-title">Panel Admin</h3>
+    <p class="admin-sub">Ingresa el código de acceso</p>
+    <input type="password" id="admin-code-input" class="admin-code-input" placeholder="Código de acceso" autocomplete="off">
+    <p class="admin-error" id="admin-code-error">Código incorrecto</p>
+    <button class="admin-btn" onclick="checkAdminCode()">Entrar</button>
+  </div>
+
+  <div id="admin-edit-view" style="display:none">
+    <h3 class="admin-title">Editar precios</h3>
+    <p class="admin-sub">Cambia los precios y guarda. Se actualizan para todos los visitantes.</p>
+    <div class="admin-pizza-list" id="admin-pizza-list"></div>
+    <p class="admin-save-msg" id="admin-save-msg"></p>
+    <button class="admin-btn" onclick="saveAdminPrices()">Guardar cambios</button>
+  </div>
+</div>
 
 <a class="whatsapp-fab" id="whatsapp-fab" href="https://wa.me/17372729117?text=Hola%2C%20tengo%20una%20consulta%20sobre%20Charito%20Pizza" target="_blank" rel="noopener" aria-label="Contáctanos por WhatsApp">
   <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -550,6 +592,7 @@ function buildEstacionesSection(){
 // ── Render all pizza cards
 function renderPizzas(){
   const grid = document.getElementById('pizza-grid');
+  grid.innerHTML='';
   PIZZAS.forEach((p,i)=>{
     const card = document.createElement('div');
     card.className = 'pizza-card';
@@ -989,6 +1032,104 @@ document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
 window.addEventListener('load',()=>{
   document.getElementById('page-loader').classList.add('hidden');
 });
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, doc, getDocs, collection, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAw4JK79wi1kdOjdBTwCcDnpqjBO825-Qk",
+  authDomain: "charitopizza-bc8ab.firebaseapp.com",
+  projectId: "charitopizza-bc8ab",
+  storageBucket: "charitopizza-bc8ab.firebasestorage.app",
+  messagingSenderId: "336367097721",
+  appId: "1:336367097721:web:01322ba6607357ec0d41a8"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const db = getFirestore(firebaseApp);
+const ADMIN_CODE = 'CHARITO-2026';
+
+async function loadPricesFromFirestore(){
+  try{
+    const snap = await getDocs(collection(db,'pizzas'));
+    snap.forEach(docSnap=>{
+      const data = docSnap.data();
+      const p = PIZZAS.find(x=>x.id===docSnap.id);
+      if(p){
+        if(typeof data.priceFam==='number') p.priceFam=data.priceFam;
+        if(typeof data.priceMed==='number') p.priceMed=data.priceMed;
+      }
+    });
+    renderPizzas();
+    applyPizzaFilter();
+  }catch(e){
+    console.warn('No se pudieron cargar precios remotos, usando precios locales.',e);
+  }
+}
+loadPricesFromFirestore();
+
+function renderAdminList(){
+  const list=document.getElementById('admin-pizza-list');
+  list.innerHTML = PIZZAS.map(p=>`
+    <div class="admin-pizza-row" data-id="${p.id}">
+      <span class="admin-pizza-row-name">${p.name}</span>
+      <div><label>${p.sizeA}</label><input type="number" min="0" step="0.5" class="admin-fam-input" value="${p.priceFam}"></div>
+      <div><label>${p.sizeB}</label><input type="number" min="0" step="0.5" class="admin-med-input" value="${p.priceMed}"></div>
+    </div>
+  `).join('');
+}
+
+window.openAdminPanel=function(){
+  document.getElementById('admin-overlay').classList.add('open');
+  document.getElementById('admin-modal').classList.add('open');
+  document.getElementById('admin-login-view').style.display='block';
+  document.getElementById('admin-edit-view').style.display='none';
+  document.getElementById('admin-code-input').value='';
+  document.getElementById('admin-code-error').classList.remove('visible');
+};
+
+window.closeAdminPanel=function(){
+  document.getElementById('admin-overlay').classList.remove('open');
+  document.getElementById('admin-modal').classList.remove('open');
+};
+
+document.getElementById('admin-overlay').addEventListener('click', ()=>window.closeAdminPanel());
+
+window.checkAdminCode=function(){
+  const input=document.getElementById('admin-code-input').value.trim();
+  if(input===ADMIN_CODE){
+    document.getElementById('admin-login-view').style.display='none';
+    document.getElementById('admin-edit-view').style.display='block';
+    renderAdminList();
+  }else{
+    document.getElementById('admin-code-error').classList.add('visible');
+  }
+};
+
+window.saveAdminPrices=async function(){
+  const msg=document.getElementById('admin-save-msg');
+  msg.classList.remove('ok');
+  msg.textContent='Guardando...';
+  const rows=document.querySelectorAll('.admin-pizza-row');
+  try{
+    for(const row of rows){
+      const id=row.dataset.id;
+      const priceFam=parseFloat(row.querySelector('.admin-fam-input').value);
+      const priceMed=parseFloat(row.querySelector('.admin-med-input').value);
+      await setDoc(doc(db,'pizzas',id), {priceFam, priceMed}, {merge:true});
+      const p=PIZZAS.find(x=>x.id===id);
+      if(p){ p.priceFam=priceFam; p.priceMed=priceMed; }
+    }
+    renderPizzas();
+    applyPizzaFilter();
+    msg.classList.add('ok');
+    msg.textContent='¡Precios actualizados para todos!';
+  }catch(e){
+    msg.textContent='Error al guardar: '+e.message;
+  }
+};
 </script>
 </body>
 </html>
