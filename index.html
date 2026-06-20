@@ -4,6 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Charito Pizza – Menú</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>%F0%9F%8D%95</text></svg>">
+<meta name="description" content="Charito Pizza: pizzas artesanales hechas con amor y sabor auténtico. Elige entre clásicas, especialidades y combinaciones mitad y mitad. Haz tu pedido fácil por WhatsApp.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Charito Pizza – Menú">
+<meta property="og:description" content="Pizzas artesanales hechas con amor y sabor auténtico. Elige tu favorita y pide fácil por WhatsApp.">
+<meta property="og:site_name" content="Charito Pizza">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Charito Pizza – Menú">
+<meta name="twitter:description" content="Pizzas artesanales hechas con amor y sabor auténtico. Elige tu favorita y pide fácil por WhatsApp.">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Poppins:wght@300;400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -29,13 +38,26 @@ header::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;backg
 .wave-wrap{line-height:0;background:#000}
 .wave-wrap svg{display:block}
 main{max-width:1020px;margin:0 auto;padding:52px 24px 160px}
+.pizza-filter-bar{margin-bottom:36px;background:var(--white);border:1.5px solid var(--gray-200);border-radius:18px;padding:18px 18px 16px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.pizza-search-wrap{position:relative;margin-bottom:14px}
+.pizza-search-wrap svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--gray-400);transition:color .2s}
+.pizza-search-input{width:100%;padding:13px 16px 13px 42px;border-radius:12px;border:1.5px solid var(--gray-200);background:var(--gray-100);font-family:'Poppins',sans-serif;font-size:14px;color:var(--dark);transition:border-color .2s,background .2s,box-shadow .2s}
+.pizza-search-input:focus{outline:none;border-color:var(--red);background:var(--white);box-shadow:0 0 0 4px rgba(215,25,32,.08)}
+.pizza-search-input:focus~svg,.pizza-search-wrap:has(.pizza-search-input:focus) svg{color:var(--red)}
+.pizza-filter-chips{display:flex;gap:8px;flex-wrap:wrap}
+.filter-chip{padding:9px 17px;border-radius:20px;border:1.5px solid var(--gray-200);background:var(--white);font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;color:var(--gray-600);cursor:pointer;transition:all .2s;letter-spacing:.3px}
+.filter-chip:hover{border-color:var(--red);color:var(--red);background:var(--red-pale)}
+.filter-chip.active{border-color:var(--red);background:linear-gradient(135deg,var(--red),var(--red-dark));color:white;box-shadow:0 4px 14px rgba(215,25,32,.3)}
+.pizza-filter-empty{display:none;margin-top:16px;text-align:center;font-size:13px;color:var(--gray-400);font-style:italic}
+.pizza-filter-empty.visible{display:block}
 .section-label{display:flex;align-items:center;gap:14px;margin:0 0 30px}
 .section-icon{width:40px;height:40px;border-radius:12px;background:var(--red);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 14px rgba(215,25,32,.35)}
 .section-icon svg{width:21px;height:21px}
 .section-title{font-family:'Playfair Display',serif;font-size:26px;font-weight:800;color:var(--dark)}
 .section-rule{flex:1;height:1px;background:linear-gradient(to right,var(--gray-200),transparent)}
 .pizza-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
-.pizza-card{background:var(--white);border-radius:18px;overflow:hidden;border:1.5px solid var(--gray-200);box-shadow:0 2px 10px rgba(0,0,0,.06);display:flex;flex-direction:column;transition:transform .3s cubic-bezier(.34,1.36,.64,1),box-shadow .3s;animation:cardIn .45s ease both}
+.pizza-card{background:var(--white);border-radius:18px;overflow:hidden;border:1.5px solid var(--gray-200);box-shadow:0 2px 10px rgba(0,0,0,.06);display:flex;flex-direction:column;transition:transform .3s cubic-bezier(.34,1.36,.64,1),box-shadow .3s,opacity .22s ease,scale .22s ease;animation:cardIn .45s ease both}
+.pizza-card.filtered-out{opacity:0;scale:.9;pointer-events:none}
 .pizza-card:hover{transform:translateY(-6px);box-shadow:0 14px 40px rgba(0,0,0,.13);border-color:rgba(215,25,32,.18)}
 .pizza-card:nth-child(1){animation-delay:.03s}.pizza-card:nth-child(2){animation-delay:.07s}.pizza-card:nth-child(3){animation-delay:.11s}.pizza-card:nth-child(4){animation-delay:.15s}.pizza-card:nth-child(5){animation-delay:.19s}.pizza-card:nth-child(6){animation-delay:.23s}.pizza-card:nth-child(7){animation-delay:.27s}.pizza-card:nth-child(8){animation-delay:.31s}.pizza-card:nth-child(9){animation-delay:.35s}.pizza-card:nth-child(10){animation-delay:.39s}.pizza-card:nth-child(11){animation-delay:.43s}.pizza-card:nth-child(12){animation-delay:.47s}
 @keyframes cardIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
@@ -47,9 +69,10 @@ main{max-width:1020px;margin:0 auto;padding:52px 24px 160px}
 .card-header-info{flex:1;position:relative;z-index:1}
 .card-badge{display:inline-block;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.75);margin-bottom:2px}
 .pizza-name{font-family:'Playfair Display',serif;font-size:19px;font-weight:800;color:white;line-height:1.1}
-.corner-badge{position:absolute;top:10px;right:12px;z-index:2;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.corner-badge{position:absolute;top:10px;right:12px;z-index:2;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,.25);animation:badgePulse 2.4s ease-in-out infinite}
+@keyframes badgePulse{0%,100%{transform:scale(1);box-shadow:0 2px 8px rgba(0,0,0,.25)}50%{transform:scale(1.08);box-shadow:0 3px 12px rgba(0,0,0,.35)}}
 .badge-nueva{background:white;color:var(--c-nueva)}.badge-especial{background:var(--gold);color:white}
-.ch-clasica{background:linear-gradient(135deg,var(--red-dark),var(--red))}.ch-nueva{background:linear-gradient(135deg,#155E2B,#1E8A3D)}.ch-bbq{background:linear-gradient(135deg,#7A2600,#C04000)}.ch-quesos{background:linear-gradient(135deg,#7A5000,#B07800)}.ch-especial{background:linear-gradient(135deg,#8A6200,#C49000)}.ch-pesto{background:linear-gradient(135deg,#155E2B,#1E7A35)}.ch-chicago{background:linear-gradient(135deg,#12347A,#1B4FBD)}
+.ch-clasica{background:linear-gradient(135deg,var(--red-dark),var(--red))}.ch-nueva{background:linear-gradient(135deg,#1B5E33,#268C4A)}.ch-bbq{background:linear-gradient(135deg,#7A2E00,#C2500A)}.ch-quesos{background:linear-gradient(135deg,#7A5000,#B07800)}.ch-especial{background:linear-gradient(135deg,#8A5A00,#C99200)}.ch-pesto{background:linear-gradient(135deg,#1B5E33,#267A45)}.ch-chicago{background:linear-gradient(135deg,#4A1F1F,#7A2E2E)}
 .card-body{padding:16px 20px 18px;flex:1;display:flex;flex-direction:column}
 .pizza-desc{font-size:12px;color:var(--gray-600);font-style:italic;margin-bottom:10px;line-height:1.6}
 .ingredients{list-style:none;margin-bottom:16px}
@@ -63,7 +86,10 @@ main{max-width:1020px;margin:0 auto;padding:52px 24px 160px}
 .size-btn.active .size-label,.size-btn.active .size-price{color:white}
 .size-label{display:block;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gray-600);margin-bottom:2px}
 .size-price{display:block;font-family:'Oswald',sans-serif;font-size:22px;font-weight:700;color:var(--dark);line-height:1;letter-spacing:-.5px}
-.add-btn{width:100%;padding:11px;border-radius:10px;background:var(--dark);color:white;border:none;cursor:pointer;font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s,transform .15s,box-shadow .2s}
+.add-btn{width:100%;padding:11px;border-radius:10px;background:var(--dark);color:white;border:none;cursor:pointer;font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .35s ease,transform .15s,box-shadow .2s}
+.add-btn.added,.bev-add-btn.added{background:var(--green)!important}
+.add-btn.added svg,.bev-add-btn.added svg{animation:checkPop .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes checkPop{0%{transform:scale(0) rotate(-20deg)}60%{transform:scale(1.25) rotate(8deg)}100%{transform:scale(1) rotate(0)}}
 .add-btn:hover{background:var(--red);box-shadow:0 6px 20px rgba(215,25,32,.3);transform:scale(1.01)}
 .add-btn:active{transform:scale(.98)}
 .add-btn svg{width:15px;height:15px;fill:white}
@@ -89,6 +115,9 @@ main{max-width:1020px;margin:0 auto;padding:52px 24px 160px}
 .bev-add-btn{width:100%;padding:11px;border-radius:10px;background:var(--dark);color:white;border:none;cursor:pointer;font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s,transform .15s,box-shadow .2s}
 .bev-add-btn:hover{background:var(--red);box-shadow:0 6px 20px rgba(215,25,32,.3);transform:scale(1.01)}
 .bev-add-btn svg{width:15px;height:15px;fill:white}
+.whatsapp-fab{position:fixed;bottom:28px;left:28px;z-index:1000;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#1DA851,#25D366);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(37,211,102,.5);transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s}
+.whatsapp-fab:hover{transform:scale(1.1);box-shadow:0 12px 32px rgba(37,211,102,.6)}
+.whatsapp-fab svg{width:26px;height:26px;fill:white}
 .cart-fab{position:fixed;bottom:28px;right:28px;z-index:1000;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--red-dark));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 28px rgba(215,25,32,.5);transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s}
 .cart-fab:hover{transform:scale(1.1);box-shadow:0 12px 36px rgba(215,25,32,.6)}
 .cart-fab svg{width:28px;height:28px;fill:white}
@@ -121,6 +150,11 @@ main{max-width:1020px;margin:0 auto;padding:52px 24px 160px}
 .qty-num{font-family:'Oswald',sans-serif;font-size:18px;font-weight:600;min-width:22px;text-align:center}
 .cart-item-price{font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;color:var(--red);min-width:48px;text-align:right;letter-spacing:-.3px}
 .cart-footer{padding:16px 24px 28px;border-top:1.5px solid var(--gray-100);background:white}
+.customer-name-row{margin-bottom:14px}
+.customer-name-label{display:block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray-600);margin-bottom:6px}
+.customer-name-input{width:100%;padding:11px 14px;border-radius:10px;border:1.5px solid var(--gray-200);font-family:'Poppins',sans-serif;font-size:14px;color:var(--dark);transition:border-color .2s}
+.customer-name-input:focus{outline:none;border-color:var(--red)}
+.customer-name-input.error{border-color:var(--red);background:var(--red-pale)}
 .cart-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;background:var(--red-pale);padding:14px 18px;border-radius:14px;border:1.5px solid rgba(215,25,32,.1)}
 .cart-total-label{font-size:12px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gray-600)}
 .cart-total-amount{font-family:'Oswald',sans-serif;font-size:36px;font-weight:700;color:var(--red);letter-spacing:-.5px}
@@ -134,6 +168,8 @@ footer{background:#000;text-align:center;padding:36px 20px;border-top:1px solid 
 .footer-tagline{font-size:10px;font-weight:600;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.3)}
 @keyframes addPop{0%{transform:scale(1)}40%{transform:scale(1.2)}100%{transform:scale(1)}}
 .cart-fab.pop{animation:addPop .35s cubic-bezier(.34,1.56,.64,1)}
+@keyframes fabTap{0%{transform:scale(1)}50%{transform:scale(.88)}100%{transform:scale(1)}}
+.cart-fab.tap{animation:fabTap .25s ease}
 
 /* ── Card extras toggle ── */
 .card-extras-toggle{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.5px;color:var(--red);cursor:pointer;margin-bottom:8px;padding:7px 10px;border-radius:8px;border:1.5px dashed rgba(215,25,32,.3);background:var(--red-pale);transition:background .2s,border-color .2s;user-select:none}
@@ -189,12 +225,23 @@ footer{background:#000;text-align:center;padding:36px 20px;border-top:1px solid 
 .bq-sublabel{font-size:9.5px;color:#A07800;margin-top:1px}
 .bq-price{font-family:'Oswald',sans-serif;font-size:18px;font-weight:700;color:var(--gold);letter-spacing:-.3px}
 
+.page-loader{position:fixed;inset:0;z-index:9999;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:opacity .4s ease,visibility .4s ease}
+.page-loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loader-pizza{font-size:52px;animation:loaderSpin 1.1s ease-in-out infinite}
+@keyframes loaderSpin{0%,100%{transform:rotate(0deg) scale(1)}50%{transform:rotate(180deg) scale(1.15)}}
+.loader-text{font-family:'Playfair Display',serif;font-size:16px;font-weight:800;letter-spacing:2px;color:white;text-transform:uppercase}
+
 /* ── Responsive ── */
-@media(max-width:768px){header{padding:36px 16px 44px}.logo-wrap img{width:175px;height:175px}main{padding:36px 16px 130px}.pizza-grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}.section-title{font-size:22px}.section-icon{width:36px;height:36px}.section-icon svg{width:18px;height:18px}.section-label{margin:44px 0 22px;gap:11px}.cart-drawer{max-height:85vh}.cart-total-amount{font-size:30px}}
-@media(max-width:480px){header{padding:28px 14px 36px}.logo-wrap img{width:150px;height:150px}.tagline{font-size:9px;letter-spacing:3.5px}.tagline-line{width:28px}main{padding:28px 12px 120px}.pizza-grid{grid-template-columns:1fr;gap:14px}.card-header{padding:14px 16px 13px;gap:11px}.card-icon-circle{width:40px;height:40px;border-radius:11px}.card-icon-circle svg{width:21px;height:21px}.pizza-name{font-size:17px}.card-badge{font-size:8px;letter-spacing:1px}.corner-badge{font-size:8px;padding:3px 8px;top:8px;right:10px}.card-body{padding:13px 16px 15px}.ingredients li{font-size:12px;padding:3px 0}.pizza-desc{font-size:11.5px}.size-selector{gap:7px;margin-bottom:11px}.size-btn{padding:8px 5px;border-radius:9px}.size-label{font-size:8px;letter-spacing:1.5px}.size-price{font-size:20px}.add-btn{font-size:10px;letter-spacing:1.5px;padding:10px}.section-label{margin:36px 0 18px;gap:10px}.section-title{font-size:20px}.section-icon{width:34px;height:34px;border-radius:10px}.section-icon svg{width:17px;height:17px}.bebida-card{max-width:100%}.bebida-name{font-size:18px}.bebida-price{font-size:32px}.bev-qty-btn{width:34px;height:38px;font-size:18px}.bev-qty-num{min-width:28px;line-height:38px;font-size:17px}.bev-add-btn{font-size:11px;padding:11px}.cart-fab{width:56px;height:56px;bottom:20px;right:18px}.cart-fab svg{width:24px;height:24px}.cart-count{min-width:19px;height:19px;font-size:9px}.cart-drawer{max-height:88vh;border-radius:22px 22px 0 0}.drawer-title{font-size:20px}.drawer-header{padding:14px 18px 12px}.cart-items{padding:12px 18px}.cart-item-name{font-size:13px}.cart-item-price{font-size:16px;min-width:40px}.qty-btn{width:27px;height:27px;font-size:15px}.qty-num{font-size:16px}.cart-footer{padding:14px 18px 24px}.cart-total-row{padding:12px 16px}.cart-total-amount{font-size:30px}.whatsapp-btn{font-size:12px;padding:14px;letter-spacing:1px}.footer-logo{font-size:19px}.footer-tagline{font-size:9px;letter-spacing:2.5px}.section-spacer{margin-top:40px}}
+@media(max-width:768px){header{padding:36px 16px 44px}.logo-wrap img{width:175px;height:175px}main{padding:36px 16px 130px}.pizza-grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}.section-title{font-size:22px}.section-icon{width:36px;height:36px}.section-icon svg{width:18px;height:18px}.section-label{margin:44px 0 22px;gap:11px}.cart-drawer{max-height:85vh}.cart-total-amount{font-size:30px}.pizza-filter-bar{padding:16px 16px 14px;margin-bottom:30px}.filter-chip{padding:8px 14px;font-size:11.5px}}
+@media(max-width:480px){header{padding:28px 14px 36px}.logo-wrap img{width:150px;height:150px}.tagline{font-size:9px;letter-spacing:2.5px}.tagline-line{width:24px}main{padding:28px 12px 120px}.pizza-grid{grid-template-columns:1fr;gap:14px}.card-header{padding:14px 16px 13px;gap:11px}.card-icon-circle{width:40px;height:40px;border-radius:11px}.card-icon-circle svg{width:21px;height:21px}.pizza-name{font-size:17px}.card-badge{font-size:8px;letter-spacing:1px}.corner-badge{font-size:8px;padding:3px 8px;top:8px;right:10px;letter-spacing:1px}.card-body{padding:13px 16px 15px}.ingredients li{font-size:12px;padding:3px 0}.pizza-desc{font-size:11.5px}.size-selector{gap:7px;margin-bottom:11px}.size-btn{padding:8px 5px;border-radius:9px}.size-label{font-size:8px;letter-spacing:1px}.size-price{font-size:20px}.add-btn{font-size:10px;letter-spacing:1px;padding:10px}.section-label{margin:36px 0 18px;gap:10px}.section-title{font-size:20px}.section-icon{width:34px;height:34px;border-radius:10px}.section-icon svg{width:17px;height:17px}.bebida-card{max-width:100%}.bebida-name{font-size:18px}.bebida-price{font-size:32px}.bev-qty-btn{width:34px;height:38px;font-size:18px}.bev-qty-num{min-width:28px;line-height:38px;font-size:17px}.bev-add-btn{font-size:11px;padding:11px}.cart-fab{width:56px;height:56px;bottom:20px;right:18px}.cart-fab svg{width:24px;height:24px}.whatsapp-fab{width:50px;height:50px;bottom:20px;left:18px}.whatsapp-fab svg{width:22px;height:22px}.cart-count{min-width:19px;height:19px;font-size:9px}.cart-drawer{max-height:88vh;border-radius:22px 22px 0 0}.drawer-title{font-size:20px}.drawer-header{padding:14px 18px 12px}.cart-items{padding:12px 18px}.cart-item-name{font-size:13px}.cart-item-price{font-size:16px;min-width:40px}.qty-btn{width:27px;height:27px;font-size:15px}.qty-num{font-size:16px}.cart-footer{padding:14px 18px 24px}.cart-total-row{padding:12px 16px}.cart-total-amount{font-size:30px}.whatsapp-btn{font-size:12px;padding:14px;letter-spacing:1px}.footer-logo{font-size:19px}.footer-tagline{font-size:9px;letter-spacing:1.5px}.section-spacer{margin-top:40px}.pizza-filter-bar{margin-bottom:24px;padding:14px 14px 12px}.pizza-search-input{font-size:13px;padding:11px 14px 11px 38px}.pizza-filter-chips{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;margin:0 -14px;padding-left:14px;padding-right:14px}.pizza-filter-chips::-webkit-scrollbar{display:none}.filter-chip{font-size:11px;padding:7px 13px;flex-shrink:0}}
 </style>
 </head>
 <body>
+
+<div class="page-loader" id="page-loader">
+  <div class="loader-pizza">🍕</div>
+  <p class="loader-text">Charito Pizza</p>
+</div>
 
 <header>
   <div class="header-glow"></div>
@@ -216,6 +263,20 @@ footer{background:#000;text-align:center;padding:36px 20px;border-top:1px solid 
 </div>
 
 <main>
+
+<div class="pizza-filter-bar">
+  <div class="pizza-search-wrap">
+    <svg viewBox="0 0 24 24" width="16" height="16"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 10-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0a4.5 4.5 0 110-9 4.5 4.5 0 010 9z" fill="currentColor"/></svg>
+    <input type="text" id="pizza-search" class="pizza-search-input" placeholder="Buscar por nombre o ingrediente...">
+  </div>
+  <div class="pizza-filter-chips" id="pizza-filter-chips">
+    <button class="filter-chip active" data-filter="Todas">Todas</button>
+    <button class="filter-chip" data-filter="Clásica">Clásicas</button>
+    <button class="filter-chip" data-filter="Nueva">Nuevas</button>
+    <button class="filter-chip" data-filter="Especialidad">Especialidades</button>
+  </div>
+  <p class="pizza-filter-empty" id="pizza-filter-empty">No encontramos pizzas con esa búsqueda.</p>
+</div>
 
 <div class="section-label">
   <div class="section-icon">
@@ -273,6 +334,10 @@ footer{background:#000;text-align:center;padding:36px 20px;border-top:1px solid 
   <div class="footer-tagline">Hecho con amor · Sabor auténtico · Gracias por tu preferencia</div>
 </footer>
 
+<a class="whatsapp-fab" id="whatsapp-fab" href="https://wa.me/17372729117?text=Hola%2C%20tengo%20una%20consulta%20sobre%20Charito%20Pizza" target="_blank" rel="noopener" aria-label="Contáctanos por WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
 <button class="cart-fab" id="cart-fab" onclick="openCart()">
   <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96C5 16.1 5.9 17 7 17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63H19c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1 1 0 0023.45 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
   <span class="cart-count" id="cart-count">0</span>
@@ -295,6 +360,10 @@ footer{background:#000;text-align:center;padding:36px 20px;border-top:1px solid 
     </div>
   </div>
   <div class="cart-footer">
+    <div class="customer-name-row">
+      <label for="customer-name" class="customer-name-label">Tu nombre</label>
+      <input type="text" id="customer-name" class="customer-name-input" placeholder="Ej. María Pérez" maxlength="60">
+    </div>
     <div class="cart-total-row">
       <span class="cart-total-label">Total del pedido</span>
       <span class="cart-total-amount" id="cart-total">$0</span>
@@ -312,12 +381,12 @@ footer{background:#000;text-align:center;padding:36px 20px;border-top:1px solid 
 // PIZZA DATA
 // ══════════════════════════════════════════
 const EXTRAS = [
-  {name:'Jamón',price:2},{name:'Tocineta',price:2},{name:'Pepperoni',price:2},
-  {name:'Maíz',price:2},{name:'Champiñones',price:2},{name:'Aceitunas',price:2},
-  {name:'Plátano',price:2},{name:'Cebolla',price:2},{name:'Jalapeño',price:2},
-  {name:'Q. crema',price:2},{name:'Q. azul',price:2},{name:'Q. parmesano',price:2},
-  {name:'Pesto',price:2},{name:'Pollo',price:3},{name:'Carne',price:3},
-  {name:'Pimentón',price:2},{name:'Tomate',price:2},{name:'Espinaca',price:2}
+  {name:'Jamón',price:3},{name:'Tocineta',price:3},{name:'Pepperoni',price:3},
+  {name:'Maíz',price:3},{name:'Champiñones',price:3},{name:'Aceitunas',price:3},
+  {name:'Plátano',price:3},{name:'Cebolla',price:3},{name:'Jalapeño',price:3},
+  {name:'Q. crema',price:3},{name:'Q. azul',price:3},{name:'Q. parmesano',price:3},
+  {name:'Pesto',price:3},{name:'Pollo',price:4},{name:'Carne',price:4},
+  {name:'Pimentón',price:3},{name:'Tomate',price:3},{name:'Espinaca',price:3}
 ];
 
 const PIZZAS = [
@@ -357,7 +426,7 @@ const PIZZAS = [
   {id:'tocineta', name:'Pizza de Tocineta', badge:'Nueva', color:'ch-clasica', icon:'fork', cornerBadge:'nueva',
    desc:'El sabor clásico con el toque ahumado de la tocineta',
    ingredients:['Salsa napolitana de la casa','Jamón · Queso mozzarella','Tocineta'],
-   priceFam:19, priceMed:10, sizeA:'Familiar', sizeB:'Mediana'},
+   priceFam:20, priceMed:12, sizeA:'Familiar', sizeB:'Mediana'},
   {id:'chicago', name:'Chicago Pizza', badge:'Chicago Style', color:'ch-chicago', icon:'building',
    desc:'', ingredients:['Salsa BBQ','Pollo · Carne de puerco','Quesos · Jamón · Pepperoni'],
    priceFam:25, priceMed:15, sizeA:'Grande', sizeB:'Pequeña'},
@@ -383,11 +452,11 @@ function buildExtrasHTML(pizzaId){
   return `
     <div class="card-extras-toggle" onclick="toggleExtras('${pizzaId}-extras-panel', this)">
       <svg viewBox="0 0 24 24" width="13" height="13"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="currentColor"/></svg>
-      Agregar ingredientes extra <span class="extras-cost-note">(+$2–$3 c/u)</span>
+      Agregar ingredientes extra <span class="extras-cost-note">(+$3–$4 c/u)</span>
     </div>
     <div class="card-extras-panel" id="${pizzaId}-extras-panel">
       <div class="card-extras-grid">
-        ${EXTRAS.map(e=>`<div class="ce-item" data-name="${e.name}" data-price="${e.price}">${e.name}${e.price===3?'<br><span style="opacity:.6;font-size:9px">$'+e.price+'</span>':''}</div>`).join('')}
+        ${EXTRAS.map(e=>`<div class="ce-item" data-name="${e.name}" data-price="${e.price}">${e.name}${e.price===4?'<br><span style="opacity:.6;font-size:9px">$'+e.price+'</span>':''}</div>`).join('')}
       </div>
       <div class="ce-selected-note" id="${pizzaId}-note"></div>
     </div>`;
@@ -395,11 +464,11 @@ function buildExtrasHTML(pizzaId){
 
 // ── Build Mitad y Mitad HTML
 function buildHalfHalfHTML(pizzaId){
-  const items = EXTRAS.map(e=>`<div class="hh-item" data-name="${e.name}">${e.name}</div>`).join('');
+  const items = EXTRAS.map(e=>`<div class="hh-item" data-name="${e.name}" data-price="${e.price}">${e.name}</div>`).join('');
   return `
     <div class="half-half-toggle" onclick="toggleHalfHalf('${pizzaId}-hh-panel', this)">
       <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-      Personalizar mitad y mitad <span class="hh-cost-note">(+$2 c/ingrediente)</span>
+      Personalizar mitad y mitad <span class="hh-cost-note">(+$3–$4 c/ingrediente)</span>
     </div>
     <div class="half-half-panel" id="${pizzaId}-hh-panel">
       <div class="half-half-header">
@@ -431,7 +500,7 @@ function buildBordeHtml(pizzaId){
           <div class="bq-sublabel">Relleno de queso fundido</div>
         </div>
       </div>
-      <div class="bq-price">+$3</div>
+      <div class="bq-price">+$4</div>
     </div>`;
 }
 
@@ -560,12 +629,14 @@ function updateHalfHalfNote(changedGrid){
   const noteId = panel.id.replace('-hh-panel','-hh-note');
   const note = document.getElementById(noteId);
   if(!note) return;
-  const selA = [...panel.querySelectorAll('[id$="-hh-a"] .sel-a')].map(e=>e.dataset.name);
-  const selB = [...panel.querySelectorAll('.sel-b')].map(e=>e.dataset.name);
+  const selAEls = [...panel.querySelectorAll('[id$="-hh-a"] .sel-a')];
+  const selBEls = [...panel.querySelectorAll('.sel-b')];
+  const selA = selAEls.map(e=>e.dataset.name);
+  const selB = selBEls.map(e=>e.dataset.name);
   const parts = [];
   if(selA.length) parts.push('Mitad A: '+selA.join(', '));
   if(selB.length) parts.push('Mitad B: '+selB.join(', '));
-  const cost = (selA.length + selB.length) * 2;
+  const cost = [...selAEls,...selBEls].reduce((s,e)=>s+parseInt(e.dataset.price),0);
   note.textContent = parts.length ? parts.join(' | ') + (cost?' (+$'+cost+')':'') : 'Selecciona ingredientes para cada mitad';
 }
 
@@ -647,11 +718,13 @@ function bindAddButtons(){
         // Half & half
         const hhPanel = document.getElementById(pizzaId+'-hh-panel');
         if(hhPanel && hhPanel.classList.contains('open')){
-          const selA = [...hhPanel.querySelectorAll('[id$="-hh-a"] .sel-a')].map(e=>e.dataset.name);
-          const selB = [...hhPanel.querySelectorAll('.sel-b')].map(e=>e.dataset.name);
+          const selAEls = [...hhPanel.querySelectorAll('[id$="-hh-a"] .sel-a')];
+          const selBEls = [...hhPanel.querySelectorAll('.sel-b')];
+          const selA = selAEls.map(e=>e.dataset.name);
+          const selB = selBEls.map(e=>e.dataset.name);
           const hhCount = selA.length + selB.length;
           if(hhCount>0){
-            price += hhCount*2;
+            price += [...selAEls,...selBEls].reduce((s,e)=>s+parseInt(e.dataset.price),0);
             const parts=[];
             if(selA.length) parts.push('M.A:'+selA.join('+'));
             if(selB.length) parts.push('M.B:'+selB.join('+'));
@@ -663,7 +736,7 @@ function bindAddButtons(){
       // Borde de queso
       const borde = document.getElementById(pizzaId+'-borde');
       const hasBorde = borde && borde.classList.contains('active');
-      if(hasBorde) price += 3;
+      if(hasBorde) price += 4;
 
       let fullName = name;
       if(extras.length) fullName += ' + '+extras.join(', ');
@@ -678,8 +751,8 @@ function bindAddButtons(){
       animateFab();
       const orig = btn.innerHTML;
       btn.innerHTML='<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="white"/></svg>¡Agregado!';
-      btn.style.background='var(--green)';
-      setTimeout(()=>{btn.innerHTML=orig;btn.style.background='';},1200);
+      btn.classList.add('added');
+      setTimeout(()=>{btn.innerHTML=orig;btn.classList.remove('added');},1200);
     });
   });
 }
@@ -687,9 +760,22 @@ function bindAddButtons(){
 // ══════════════════════════════════════════
 // CART
 // ══════════════════════════════════════════
-let cart=[], cartId=0;
+const CART_STORAGE_KEY='charitopizza-cart';
+let cart=loadCartFromStorage(), cartId=cart.reduce((max,i)=>Math.max(max,i.id+1),0);
+
+function loadCartFromStorage(){
+  try{
+    const raw=localStorage.getItem(CART_STORAGE_KEY);
+    return raw?JSON.parse(raw):[];
+  }catch(e){return [];}
+}
+
+function saveCartToStorage(){
+  try{localStorage.setItem(CART_STORAGE_KEY,JSON.stringify(cart));}catch(e){}
+}
 
 function updateCartUI(){
+  saveCartToStorage();
   const count=cart.reduce((s,i)=>s+i.qty,0);
   const total=cart.reduce((s,i)=>s+i.price*i.qty,0);
   const countEl=document.getElementById('cart-count');
@@ -743,6 +829,10 @@ function openCart(){
   document.getElementById('cart-overlay').classList.add('open');
   document.getElementById('cart-drawer').classList.add('open');
   document.body.style.overflow='hidden';
+  const fab=document.getElementById('cart-fab');
+  fab.classList.remove('tap');
+  void fab.offsetWidth;
+  fab.classList.add('tap');
 }
 function closeCart(){
   document.getElementById('cart-overlay').classList.remove('open');
@@ -767,13 +857,23 @@ document.getElementById('bev-add-btn').addEventListener('click',()=>{
   updateCartUI(); animateFab();
   bevQty=0; document.getElementById('bev-qty').textContent=0;
   const btn=document.getElementById('bev-add-btn');
-  const orig=btn.innerHTML; btn.innerHTML='¡Agregado!'; btn.style.background='var(--green)';
-  setTimeout(()=>{btn.innerHTML=orig;btn.style.background='';},1200);
+  const orig=btn.innerHTML;
+  btn.innerHTML='<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="white"/></svg>¡Agregado!';
+  btn.classList.add('added');
+  setTimeout(()=>{btn.innerHTML=orig;btn.classList.remove('added');},1200);
 });
 
 function sendToWhatsApp(){
   if(cart.length===0){alert('Tu pedido está vacío. Agrega al menos un producto.');return;}
-  let msg='🍕 *¡Hola! Quiero hacer un pedido de Charito Pizza:*\n\n';
+  const nameInput=document.getElementById('customer-name');
+  const name=nameInput.value.trim();
+  if(!name){
+    nameInput.classList.add('error');
+    nameInput.focus();
+    return;
+  }
+  nameInput.classList.remove('error');
+  let msg=`🍕 *¡Hola! Soy ${name} y quiero hacer un pedido de Charito Pizza:*\n\n`;
   cart.forEach(item=>{
     const s=item.size?' ('+item.size+')':'';
     msg+=`• ${item.qty}x ${item.name}${s} — $${item.price*item.qty}\n`;
@@ -783,8 +883,49 @@ function sendToWhatsApp(){
   window.open('https://wa.me/17372729117?text='+encodeURIComponent(msg),'_blank');
 }
 
+document.getElementById('customer-name').addEventListener('input',e=>e.target.classList.remove('error'));
+
+// ── Pizza search & filter
+let activeFilter='Todas';
+function applyPizzaFilter(){
+  const query=document.getElementById('pizza-search').value.trim().toLowerCase();
+  const grid=document.getElementById('pizza-grid');
+  let visibleCount=0;
+  PIZZAS.forEach(p=>{
+    const card=grid.querySelector(`.pizza-card[data-id="${p.id}"]`);
+    if(!card) return;
+    const matchesFilter=activeFilter==='Todas'||p.badge===activeFilter;
+    const haystack=(p.name+' '+p.ingredients.join(' ')).toLowerCase();
+    const matchesQuery=!query||haystack.includes(query);
+    const visible=matchesFilter&&matchesQuery;
+    if(visible){
+      card.style.display='';
+      requestAnimationFrame(()=>card.classList.remove('filtered-out'));
+      visibleCount++;
+    } else {
+      card.classList.add('filtered-out');
+      setTimeout(()=>{if(card.classList.contains('filtered-out')) card.style.display='none';},220);
+    }
+  });
+  document.getElementById('pizza-filter-empty').classList.toggle('visible',visibleCount===0);
+}
+
+document.getElementById('pizza-search').addEventListener('input',applyPizzaFilter);
+document.getElementById('pizza-filter-chips').addEventListener('click',e=>{
+  const chip=e.target.closest('.filter-chip');
+  if(!chip) return;
+  document.querySelectorAll('.filter-chip').forEach(c=>c.classList.remove('active'));
+  chip.classList.add('active');
+  activeFilter=chip.dataset.filter;
+  applyPizzaFilter();
+});
+
 // ── Init
 renderPizzas();
+updateCartUI();
+window.addEventListener('load',()=>{
+  document.getElementById('page-loader').classList.add('hidden');
+});
 </script>
 </body>
 </html>
